@@ -27,17 +27,6 @@
             ></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-
-        <h1 class="pt-6 pl-4 white--text">Playlist</h1>
-
-        <v-list-item v-for="item in itemsPlayList" :key="item.key">
-          <v-list-item-content>
-            <v-list-item-title
-              class="white--text"
-              v-text="item.name"
-            ></v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
       </v-list-item-group>
     </v-list>
   </v-navigation-drawer>
@@ -89,29 +78,6 @@ export default {
       {
         path: "/canciones",
         name: "Canciones",
-        key: uuidv4(),
-      },
-      {
-        path: "/estaciones",
-        name: "Estaciones",
-        key: uuidv4(),
-      },
-    ],
-    itemsPlayList: [
-      {
-        name: "Metal",
-        key: uuidv4(),
-      },
-      {
-        name: "Para Bailar",
-        key: uuidv4(),
-      },
-      {
-        name: "Rocks 90s",
-        key: uuidv4(),
-      },
-      {
-        name: "Baladas",
         key: uuidv4(),
       },
     ],

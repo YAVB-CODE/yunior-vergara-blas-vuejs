@@ -82,13 +82,13 @@ export default {
       MUTATION_VOLUME_OFF_MUSIC,
       MUTATION_MUSIC,
     ]),
-    handlePlayMusic() {
+    async handlePlayMusic() {
       const player_music = this.$refs.player_music;
 
       if (this.PLAY_MUSIC) {
-        player_music.pause();
+        await player_music.pause();
       } else {
-        player_music.play();
+        await player_music.play();
       }
 
       this.MUTATION_PLAY_MUSIC();
@@ -112,7 +112,7 @@ export default {
       if (findMusic < 0) {
         this.MUTATION_MUSIC(this.LIST_MUSIC[0]);
       } else {
-        if (findMusic < this.LIST_MUSIC.length) {
+        if (findMusic < this.LIST_MUSIC.length - 1) {
           this.MUTATION_MUSIC(this.LIST_MUSIC[findMusic + 1]);
         } else {
           this.MUTATION_MUSIC(this.LIST_MUSIC[0]);
@@ -127,10 +127,10 @@ export default {
       if (findMusic < 0) {
         this.MUTATION_MUSIC(this.LIST_MUSIC[0]);
       } else {
-        if (findMusic == 0) {
-          this.MUTATION_MUSIC(this.LIST_MUSIC[0]);
-        } else {
+        if (findMusic > 0) {
           this.MUTATION_MUSIC(this.LIST_MUSIC[findMusic - 1]);
+        } else {
+          this.MUTATION_MUSIC(this.LIST_MUSIC[0]);
         }
       }
     },
@@ -143,10 +143,11 @@ export default {
         this.MUTATION_VOLUME_OFF_MUSIC();
       }
     },
-    [MUSIC]() {
+    async [MUSIC]() {
       const player_music = this.$refs.player_music;
       player_music.src = this.MUSIC.preview;
-      player_music.play();
+
+      await player_music.play();
 
       this.$refs.music_picture.src = this.MUSIC.album.cover_medium;
       this.$refs.music_name.innerHTML = this.MUSIC.artist.name;

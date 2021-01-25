@@ -32,7 +32,7 @@
         sm="6"
         md="4"
         lg="2"
-        v-for="music in musicsList"
+        v-for="music in LIST_MUSIC"
         :key="music.id"
       >
         <CardMusic
@@ -40,6 +40,10 @@
           :musicName="music.title"
           :musicArtist="music.artist.name"
           :musicPreview="music.preview"
+          :musicId="music.id"
+          :musicRank="music.rank"
+          :musicDuration="music.duration"
+          :musicLinkDezzer="music.link"
         ></CardMusic>
       </v-col>
     </v-row>
@@ -57,12 +61,12 @@ import {
   MUTATION_MUSIC,
   SEARCH_MUSIC,
   MUTATION_LIST_MUSIC,
+  LIST_MUSIC,
 } from "@/store/types";
 
 export default {
-  name: "Artistas",
+  name: "Albums",
   data: () => ({
-    musicsList: [],
     showError: false,
     showModal: true,
   }),
@@ -75,7 +79,7 @@ export default {
       let url = axios.defaults.baseURL;
 
       this.showModal = true;
-      if (this.SEARCH_MUSIC !== "") {
+      if (this.SEARCH_MUSIC !== "" && this.SEARCH_MUSIC !== null) {
         url += `/search?q=artist:"${this.SEARCH_MUSIC}"`;
       } else {
         url += `/search?q=artist:"daddy"`;
@@ -86,14 +90,13 @@ export default {
       if (musicsFetch.data.data.length > 0) {
         this.MUTATION_MUSIC(musicsFetch.data.data[0]);
         this.MUTATION_LIST_MUSIC(musicsFetch.data.data);
-        this.musicsList = musicsFetch.data.data;
       } else {
         this.showError = true;
       }
     },
   },
   computed: {
-    ...mapState([SEARCH_MUSIC]),
+    ...mapState([SEARCH_MUSIC, LIST_MUSIC]),
   },
   watch: {
     [SEARCH_MUSIC]() {

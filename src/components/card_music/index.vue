@@ -48,6 +48,10 @@ export default {
         album: {
           cover_medium: this.urlPicture,
         },
+        id: this.musicId,
+        rank: this.musicRank,
+        duration: this.musicDuration,
+        link: this.musicLinkDezzer,
       });
     },
   },
@@ -56,6 +60,10 @@ export default {
     musicName: String,
     musicArtist: String,
     musicPreview: String,
+    musicId: Number,
+    musicRank: Number,
+    musicDuration: Number,
+    musicLinkDezzer: String,
   },
 };
 </script>
